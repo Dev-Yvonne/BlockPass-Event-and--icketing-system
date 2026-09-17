@@ -1,0 +1,201 @@
+:root {
+  --color-bg: #0f1115;
+  --color-surface: #171a21;
+  --color-border: #2a2e37;
+  --color-text: #e8eaed;
+  --color-muted: #9aa0a8;
+  --color-accent: #6c5ce7;
+  --color-error: #ff6b6b;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.navbar .brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.navbar a,
+.navbar button {
+  color: var(--color-text);
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page.narrow {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.event-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--color-text);
+  display: block;
+}
+
+.event-card-image img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.event-card-placeholder {
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-border);
+  color: var(--color-muted);
+}
+
+.event-card-body {
+  padding: 1rem;
+}
+
+.event-card-meta {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.event-card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form.inline {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.form input,
+.form select,
+.form textarea {
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 1rem;
+}
+
+.form button,
+.booking-list button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--color-accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status {
+  color: var(--color-muted);
+}
+
+.status.error {
+  color: var(--color-error);
+}
+
+.review-list,
+.booking-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.review-list li,
+.booking-list li {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+}
+
+.booking-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.booking-list li.cancelled {
+  opacity: 0.5;
+}
