@@ -176,6 +176,19 @@ main {
   color: var(--color-error);
 }
 
+.demo-hint {
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--color-muted);
+}
+
+.demo-hint code {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
 .review-list,
 .booking-list {
   list-style: none;

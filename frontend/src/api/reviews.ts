@@ -1,12 +1,24 @@
-import { api } from "./client";
 import { Review } from "../types";
+import { apiError, delay, getCurrentUser, getReviews, newId, saveReviews } from "../mockStore";
 
 export function listEventReviews(eventId: string) {
-  return api.get<Review[]>(`/events/${eventId}/reviews`).then((res) => res.data);
+  return delay(getReviews().filter((r) => r.event === eventId));
 }
 
 export function createReview(eventId: string, rating: number, comment: string) {
-  return api
-    .post<Review>(`/events/${eventId}/reviews`, { rating, comment })
-    .then((res) => res.data);
+  const user = getCurrentUser();
+  if (!user) return Promise.reject(apiError("Not authenticated"));
+
+  const review: Review = {
+    _id: newId("rev"),
+    user: { _id: user.id, name: user.name },
+    event: eventId,
+    rating,
+    comment,
+    createdAt: new Date().toISOString(),
+  };
+  const reviews = getReviews();
+  reviews.unshift(review);
+  saveReviews(reviews);
+  return delay(review);
 }

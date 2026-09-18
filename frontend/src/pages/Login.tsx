@@ -49,6 +49,10 @@ export function Login() {
       <p>
         No account? <Link to="/register">Register</Link>
       </p>
+      <p className="demo-hint">
+        Demo accounts: <code>organizer@blockpass.app</code> or <code>attendee@blockpass.app</code>,
+        password <code>demo1234</code>
+      </p>
     </div>
   );
 }
