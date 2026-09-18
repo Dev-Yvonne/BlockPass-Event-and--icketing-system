@@ -31,8 +31,8 @@ export function Hero() {
               <a href="#organizers" className="btn btn-primary btn-lg">
                 Create Your Event
               </a>
-              <a href="#get-started" className="btn btn-ghost btn-lg">
-                Get Verified Tickets
+              <a href="#get-started" className="btn btn-secondary btn-lg">
+                Browse Events
               </a>
             </div>
           </Reveal>
