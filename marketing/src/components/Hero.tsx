@@ -28,11 +28,11 @@ export function Hero() {
 
           <Reveal delay={200}>
             <div className="hero-ctas">
-              <a href="#get-started" className="btn btn-primary btn-lg">
-                Get Verified Tickets
+              <a href="#organizers" className="btn btn-primary btn-lg">
+                Create Your Event
               </a>
-              <a href="#organizers" className="btn btn-ghost btn-lg">
-                Host an Event
+              <a href="#get-started" className="btn btn-ghost btn-lg">
+                Get Verified Tickets
               </a>
             </div>
           </Reveal>

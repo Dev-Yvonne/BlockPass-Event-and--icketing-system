@@ -49,7 +49,7 @@ export function Features() {
 
         <div className="features-grid">
           {FEATURES.map((feature, i) => (
-            <Reveal key={feature.title} delay={(i % 3) * 90} className="feature-card">
+            <Reveal key={feature.title} delay={(i % 2) * 90} className="feature-card">
               <div className="feature-icon">
                 <feature.icon size={20} />
               </div>

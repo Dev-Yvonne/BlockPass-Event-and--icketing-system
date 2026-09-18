@@ -1,8 +1,8 @@
-import { MapPin } from "lucide-react";
 import { Reveal } from "./Reveal";
 import africaMapSvg from "../assets/africa-map.svg?raw";
+import { COUNTRY_MAPS } from "../data/countryMaps";
 
-const MARKETS = [
+const MARKERS = [
   { city: "Lagos", country: "Nigeria", x: 30, y: 48 },
   { city: "Accra", country: "Ghana", x: 25, y: 50 },
   { city: "Dakar", country: "Senegal", x: 8, y: 30 },
@@ -13,6 +13,8 @@ const MARKETS = [
   { city: "Kinshasa", country: "DR Congo", x: 48, y: 62 },
   { city: "Johannesburg", country: "South Africa", x: 57, y: 83 },
 ];
+
+const MARQUEE_ITEMS = [...COUNTRY_MAPS, ...COUNTRY_MAPS];
 
 export function AfricaMap() {
   return (
@@ -28,38 +30,40 @@ export function AfricaMap() {
           </p>
         </Reveal>
 
-        <div className="africa-map-layout">
-          <Reveal className="africa-map-visual">
-            <div
-              className="africa-map-svg"
-              dangerouslySetInnerHTML={{ __html: africaMapSvg }}
-              role="img"
-              aria-label="Map of Africa with markers over BlockPass priority markets"
+        <Reveal className="africa-map-visual">
+          <div
+            className="africa-map-svg"
+            dangerouslySetInnerHTML={{ __html: africaMapSvg }}
+            role="img"
+            aria-label="Map of Africa with markers over BlockPass priority markets"
+          />
+          {MARKERS.map((m) => (
+            <span
+              key={m.city}
+              className="africa-map-pin"
+              style={{ left: `${m.x}%`, top: `${m.y}%` }}
+              title={`${m.city}, ${m.country}`}
             />
-            {MARKETS.map((m) => (
-              <span
-                key={m.city}
-                className="africa-map-pin"
-                style={{ left: `${m.x}%`, top: `${m.y}%` }}
-                title={`${m.city}, ${m.country}`}
-              />
-            ))}
-          </Reveal>
+          ))}
+        </Reveal>
 
-          <Reveal delay={120} className="africa-market-list">
-            <h3>Priority markets</h3>
-            <ul>
-              {MARKETS.map((m) => (
-                <li key={m.city}>
-                  <MapPin size={16} className="icon" />
-                  <span>
-                    <strong>{m.city}</strong>, {m.country}
-                  </span>
-                </li>
+        <Reveal delay={120} className="country-marquee-wrap">
+          <p className="country-marquee-label">Priority markets</p>
+          <div className="country-marquee">
+            <div className="country-track">
+              {MARQUEE_ITEMS.map((c, i) => (
+                <div className="country-card" key={`${c.code}-${i}`} aria-hidden={i >= COUNTRY_MAPS.length}>
+                  <svg viewBox={c.viewBox}>
+                    <g transform={c.transform}>
+                      <path d={c.path} />
+                    </g>
+                  </svg>
+                  <span>{c.name}</span>
+                </div>
               ))}
-            </ul>
-          </Reveal>
-        </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

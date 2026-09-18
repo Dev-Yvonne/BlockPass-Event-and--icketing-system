@@ -690,22 +690,11 @@ section {
 
 /* ---------- Africa map ---------- */
 
-.africa-map-layout {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 40px;
-  align-items: center;
-}
-
-@media (max-width: 860px) {
-  .africa-map-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
 .africa-map-visual {
   position: relative;
   width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
   aspect-ratio: 1 / 1;
   background: var(--surface);
   border-radius: var(--radius);
@@ -757,59 +746,102 @@ section {
   }
 }
 
-.africa-market-list h3 {
-  font-size: 1.05rem;
-  margin-bottom: 16px;
-  color: var(--text);
+.country-marquee-wrap {
+  margin-top: 52px;
 }
 
-.africa-market-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px 20px;
+.country-marquee-label {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 22px;
 }
 
-@media (max-width: 480px) {
-  .africa-market-list ul {
-    grid-template-columns: 1fr;
+.country-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.country-track {
+  display: flex;
+  width: max-content;
+  gap: 18px;
+  animation: country-scroll 32s linear infinite;
+}
+
+.country-marquee:hover .country-track {
+  animation-play-state: paused;
+}
+
+@keyframes country-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-.africa-market-list li {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-.africa-market-list li strong {
-  color: var(--text);
-  font-weight: 600;
-}
-
-.africa-market-list .icon {
-  color: var(--accent);
+.country-card {
   flex-shrink: 0;
+  width: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+  padding: 16px 8px;
+}
+
+.country-card svg {
+  width: 52px;
+  height: 52px;
+  overflow: visible;
+}
+
+.country-card path {
+  fill: var(--accent);
+}
+
+.country-card span {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .country-card {
+    width: 88px;
+    padding: 14px 6px;
+  }
+  .country-card svg {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .country-track {
+    animation: none;
+  }
 }
 
 /* ---------- How it works ---------- */
 
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-}
-
-@media (max-width: 960px) {
-  .steps {
-    grid-template-columns: 1fr 1fr;
-  }
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 780px;
+  margin: 0 auto;
 }
 
 @media (max-width: 600px) {
@@ -857,14 +889,10 @@ section {
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-@media (max-width: 860px) {
-  .features-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 860px;
+  margin: 0 auto;
 }
 
 @media (max-width: 600px) {
