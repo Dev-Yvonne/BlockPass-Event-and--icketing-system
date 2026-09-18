@@ -77,9 +77,6 @@ export function Nav() {
           <HashLink hash="#faq" className="btn btn-ghost">
             Learn more
           </HashLink>
-          <HashLink hash="#get-started" className="btn btn-primary">
-            Launch App
-          </HashLink>
         </div>
 
         <button
@@ -102,13 +99,6 @@ export function Nav() {
           <Link to="/contact" onClick={() => setOpen(false)}>
             Contact
           </Link>
-          <HashLink
-            hash="#get-started"
-            className="btn btn-primary"
-            onNavigate={() => setOpen(false)}
-          >
-            Launch App
-          </HashLink>
         </div>
       )}
     </header>
