@@ -1,4 +1,4 @@
-import { Link2, Zap, Lock, ShieldCheck } from "lucide-react";
+import { Link2, ShieldCheck } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 export function Hero() {
@@ -13,13 +13,6 @@ export function Hero() {
       <div className="container hero-inner">
         <div>
           <Reveal>
-            <span className="pill">
-              <Link2 size={14} />
-              Building on Stellar
-            </span>
-          </Reveal>
-
-          <Reveal delay={80}>
             <h1 className="hero-title">
               Every ticket, <span className="accent-text">verified on-chain.</span>
             </h1>
@@ -44,19 +37,6 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={260}>
-            <div className="hero-badges">
-              <span className="pill">
-                <Link2 size={14} /> Building on Stellar
-              </span>
-              <span className="pill">
-                <Zap size={14} /> Real-time minting
-              </span>
-              <span className="pill">
-                <Lock size={14} /> One-time check-in
-              </span>
-            </div>
-          </Reveal>
         </div>
 
         <Reveal delay={160} className="ticket-wrap">

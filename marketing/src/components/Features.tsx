@@ -24,7 +24,7 @@ const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
   },
   {
     icon: Orbit,
-    title: "Building on Stellar",
+    title: "Fast, low-cost settlement",
     body: "Stellar's ledger settles in seconds at a fraction of a cent per transaction, so minting at scale stays fast and affordable.",
   },
   {
