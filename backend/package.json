@@ -7,9 +7,11 @@
     "dev": "nodemon src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "stellar:init": "ts-node scripts/initializeContract.ts"
   },
   "dependencies": {
+    "@stellar/stellar-sdk": "^13.3.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
