@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48">
+  <rect width="40" height="40" y="4" rx="10" fill="#6d4fe8" />
+  <rect x="7" y="16.5" width="26" height="15" rx="3" fill="#ffffff" />
+  <circle cx="7" cy="24" r="3.6" fill="#6d4fe8" />
+  <circle cx="33" cy="24" r="3.6" fill="#6d4fe8" />
+  <circle cx="20" cy="20.2" r="1.1" fill="#6d4fe8" />
+  <circle cx="20" cy="24" r="1.1" fill="#6d4fe8" />
+  <circle cx="20" cy="27.8" r="1.1" fill="#6d4fe8" />
+  <text
+    x="52"
+    y="32"
+    font-family="'Space Grotesk', Arial, sans-serif"
+    font-weight="700"
+    font-size="26"
+    letter-spacing="-0.3"
+    fill="#14151a"
+  >BlockPass</text>
+</svg>

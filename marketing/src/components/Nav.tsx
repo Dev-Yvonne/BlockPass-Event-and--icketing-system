@@ -1,39 +1,85 @@
-import { useState } from "react";
+import { useState, MouseEvent, ReactNode } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import { LogoMark } from "./Logo";
 
-const LINKS = [
-  { href: "#problem", label: "The Problem" },
-  { href: "#how-it-works", label: "How It Works" },
-  { href: "#features", label: "Features" },
-  { href: "#organizers", label: "For Organizers" },
-  { href: "#faq", label: "FAQ" },
+const SECTION_LINKS = [
+  { hash: "#problem", label: "Why BlockPass" },
+  { hash: "#how-it-works", label: "How It Works" },
+  { hash: "#features", label: "Platform" },
+  { hash: "#organizers", label: "For Organizers" },
+  { hash: "#faq", label: "FAQ" },
 ];
+
+function HashLink({
+  hash,
+  className,
+  children,
+  onNavigate,
+}: {
+  hash: string;
+  className?: string;
+  children: ReactNode;
+  onNavigate?: () => void;
+}) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleClick(e: MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    onNavigate?.();
+    if (location.pathname === "/") {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate(`/${hash}`);
+    }
+  }
+
+  return (
+    <a href={`/${hash}`} className={className} onClick={handleClick}>
+      {children}
+    </a>
+  );
+}
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  function handleBrandClick(e: MouseEvent<HTMLAnchorElement>) {
+    if (location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/");
+    }
+  }
 
   return (
     <header className="nav">
       <div className="nav-inner">
-        <a href="#top" className="brand">
-          <span className="brand-mark">BP</span>
+        <Link to="/" className="brand" onClick={handleBrandClick}>
+          <LogoMark size={26} />
           BlockPass
-        </a>
+        </Link>
 
         <nav className="nav-links">
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href}>
+          {SECTION_LINKS.map((link) => (
+            <HashLink key={link.hash} hash={link.hash}>
               {link.label}
-            </a>
+            </HashLink>
           ))}
+          <Link to="/contact">Contact</Link>
         </nav>
 
         <div className="nav-actions">
-          <a href="#faq" className="btn btn-ghost">
+          <HashLink hash="#faq" className="btn btn-ghost">
             Learn more
-          </a>
-          <a href="#get-started" className="btn btn-primary">
+          </HashLink>
+          <HashLink hash="#get-started" className="btn btn-primary">
             Launch App
-          </a>
+          </HashLink>
         </div>
 
         <button
@@ -42,20 +88,27 @@ export function Nav() {
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? "✕" : "☰"}
+          {open ? <X size={18} /> : <Menu size={18} />}
         </button>
       </div>
 
       {open && (
         <div className="nav-mobile">
-          {LINKS.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)}>
+          {SECTION_LINKS.map((link) => (
+            <HashLink key={link.hash} hash={link.hash} onNavigate={() => setOpen(false)}>
               {link.label}
-            </a>
+            </HashLink>
           ))}
-          <a href="#get-started" className="btn btn-primary" onClick={() => setOpen(false)}>
+          <Link to="/contact" onClick={() => setOpen(false)}>
+            Contact
+          </Link>
+          <HashLink
+            hash="#get-started"
+            className="btn btn-primary"
+            onNavigate={() => setOpen(false)}
+          >
             Launch App
-          </a>
+          </HashLink>
         </div>
       )}
     </header>

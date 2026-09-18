@@ -29,6 +29,9 @@ body {
 }
 
 .navbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 700;
   font-size: 1.25rem;
   color: var(--color-accent);

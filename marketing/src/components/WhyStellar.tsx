@@ -1,3 +1,4 @@
+import { Check } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const POINTS = [
@@ -14,15 +15,16 @@ export function WhyStellar() {
           <span className="eyebrow">Why Stellar</span>
           <h2 className="section-title">A ledger built for fast, low-cost, real-world assets</h2>
           <p className="section-sub" style={{ marginTop: 16 }}>
-            BlockPass is currently minting tickets on the Stellar testnet as it builds toward a
-            full production launch — the same network and contract logic that will power
-            mainnet ticketing.
+            BlockPass is being built on the Stellar network from the ground up — every ticket
+            designed from day one to be minted and verified on-chain.
           </p>
 
           <ul className="stellar-list">
             {POINTS.map((point) => (
               <li key={point} className="stellar-list-item">
-                <span className="check-badge">✓</span>
+                <span className="check-badge">
+                  <Check size={14} />
+                </span>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.95rem" }}>{point}</p>
               </li>
             ))}

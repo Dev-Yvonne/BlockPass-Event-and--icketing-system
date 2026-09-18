@@ -1,29 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Nav } from "./components/Nav";
-import { Hero } from "./components/Hero";
-import { Problem } from "./components/Problem";
-import { HowItWorks } from "./components/HowItWorks";
-import { Features } from "./components/Features";
-import { WhyStellar } from "./components/WhyStellar";
-import { ForOrganizers } from "./components/ForOrganizers";
-import { Faq } from "./components/Faq";
-import { CtaBand } from "./components/CtaBand";
 import { Footer } from "./components/Footer";
+import Landing from "./pages/Landing";
+import Contact from "./pages/Contact";
 
 export default function App() {
   return (
-    <>
+    <BrowserRouter>
       <Nav />
-      <main>
-        <Hero />
-        <Problem />
-        <HowItWorks />
-        <Features />
-        <WhyStellar />
-        <ForOrganizers />
-        <Faq />
-        <CtaBand />
-      </main>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }

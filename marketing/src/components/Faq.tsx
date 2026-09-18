@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { Plus } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const QUESTIONS = [
   {
     q: "Is BlockPass live for real purchases today?",
-    a: "BlockPass is currently minting tickets on the Stellar testnet as part of active development. This lets us prove out the checkout-to-mint flow end-to-end before moving to mainnet for live, paid events.",
+    a: "Not yet. BlockPass is in active development, building the checkout-to-ticket flow on the Stellar network so every ticket can be minted and verified on-chain. We'll share the date as soon as we're ready to open live events.",
   },
   {
     q: "Do I need a crypto wallet to buy a ticket?",
@@ -15,8 +16,8 @@ const QUESTIONS = [
     a: "Each ticket is a unique on-chain asset that can only be checked in once. When gate staff scan a ticket, the contract marks it used on the ledger — a second scan of a copied screenshot is rejected instantly.",
   },
   {
-    q: "Is BlockPass only for events in Kenya?",
-    a: "We're building and testing with Kenya's concert and community event scene first, since that's where the fake-ticket and duplicate-entry problems are most acute — but the underlying platform isn't geography-locked.",
+    q: "Which countries is BlockPass available in?",
+    a: "We're building and testing with concert and community event organizers across Africa, since that's where the fake-ticket and duplicate-entry problems are most acute — the underlying platform isn't limited to a single country.",
   },
   {
     q: "What happens if I lose access to my account?",
@@ -46,7 +47,9 @@ export function Faq() {
                   aria-expanded={isOpen}
                 >
                   {item.q}
-                  <span className="faq-icon">+</span>
+                  <span className="faq-icon">
+                    <Plus size={14} />
+                  </span>
                 </button>
                 <div className="faq-answer">
                   <p>{item.a}</p>

@@ -5,10 +5,16 @@ export function CtaBand() {
     <section id="get-started">
       <div className="container">
         <Reveal className="cta-band">
+          <div className="cta-media">
+            <img
+              src="/images/cta-accra-crowd.jpg"
+              alt="Audience members engaged at a live event in Accra, Ghana"
+            />
+          </div>
           <h2>Ready to end fake tickets at your next event?</h2>
           <p>
             Join the organizers and fans building the fraud-proof way to buy, sell, and scan
-            event tickets in Kenya.
+            event tickets across Africa.
           </p>
           <div className="cta-actions">
             <a href="#" className="btn btn-primary btn-lg">

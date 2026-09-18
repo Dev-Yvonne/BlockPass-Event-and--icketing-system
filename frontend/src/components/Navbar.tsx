@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { LogoMark } from "./Logo";
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -13,6 +14,7 @@ export function Navbar() {
   return (
     <header className="navbar">
       <Link to="/" className="brand">
+        <LogoMark size={26} />
         BlockPass
       </Link>
       <nav>

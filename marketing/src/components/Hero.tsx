@@ -1,15 +1,21 @@
+import { Link2, Zap, Lock, ShieldCheck } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 export function Hero() {
   return (
     <section className="hero" id="top">
-      <div className="hero-glow" />
+      <div className="hero-media">
+        <img
+          src="/images/hero-lagos-festival.jpg"
+          alt="Crowd and performers at a live concert in Lagos, Nigeria"
+        />
+      </div>
       <div className="container hero-inner">
         <div>
           <Reveal>
             <span className="pill">
-              <span className="pill-dot" />
-              Live on Stellar Testnet
+              <Link2 size={14} />
+              Building on Stellar
             </span>
           </Reveal>
 
@@ -40,9 +46,15 @@ export function Hero() {
 
           <Reveal delay={260}>
             <div className="hero-badges">
-              <span className="pill">⛓ Built on Stellar</span>
-              <span className="pill">⚡ Real-time minting</span>
-              <span className="pill">🔒 One-time check-in</span>
+              <span className="pill">
+                <Link2 size={14} /> Building on Stellar
+              </span>
+              <span className="pill">
+                <Zap size={14} /> Real-time minting
+              </span>
+              <span className="pill">
+                <Lock size={14} /> One-time check-in
+              </span>
             </div>
           </Reveal>
         </div>
@@ -54,7 +66,7 @@ export function Hero() {
                 <div className="ticket-event">Nairobi Afrobeat Live</div>
                 <div className="ticket-venue">Uhuru Gardens · Sat, 14 Mar</div>
               </div>
-              <span className="ticket-status">● Minted</span>
+              <span className="ticket-status">Minted</span>
             </div>
 
             <div className="ticket-divider" />
@@ -83,12 +95,14 @@ export function Hero() {
                 <div className="ticket-chain-label">Asset ID</div>
                 <div className="ticket-chain-id">CB3F…9E21 · token #184</div>
               </div>
-              <div>⛓</div>
+              <Link2 size={18} className="icon" />
             </div>
           </div>
 
           <div className="ticket-float">
-            <span className="ticket-float-icon">✓</span>
+            <span className="ticket-float-icon">
+              <ShieldCheck size={16} />
+            </span>
             Authenticity verified in real time
           </div>
         </Reveal>
