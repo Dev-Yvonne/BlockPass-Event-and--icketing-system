@@ -1,26 +1,37 @@
-import { Link } from "react-router-dom";
+import { MapPin } from "lucide-react";
+import Link from "next/link";
+import { dateParts, formatPrice } from "../lib/format";
 import { EventItem } from "../types";
 
 export function EventCard({ event }: { event: EventItem }) {
   const remaining = event.capacity - event.ticketsSold;
+  const { day, month } = dateParts(event.date);
 
   return (
-    <Link to={`/events/${event._id}`} className="event-card">
+    <Link href={`/events/${event._id}`} className="event-card">
       <div className="event-card-image">
         {event.imageUrl ? (
-          <img src={event.imageUrl} alt={event.title} />
+          <img src={event.imageUrl} alt="" loading="lazy" />
         ) : (
-          <div className="event-card-placeholder">{event.category}</div>
+          <span className="event-card-placeholder">{event.category}</span>
         )}
+        <span className="date-chip">
+          <strong>{day}</strong>
+          {month}
+        </span>
       </div>
       <div className="event-card-body">
+        <span className="event-card-category">{event.category}</span>
         <h3>{event.title}</h3>
-        <p className="event-card-meta">
-          {new Date(event.date).toLocaleDateString()} · {event.venue}
+        <p className="event-card-venue">
+          <MapPin size={14} aria-hidden="true" />
+          {event.venue}
         </p>
         <p className="event-card-footer">
-          <span>${event.price.toFixed(2)}</span>
-          <span>{remaining > 0 ? `${remaining} left` : "Sold out"}</span>
+          <span>From {formatPrice(event.price)}</span>
+          <span className={remaining > 0 ? "" : "sold-out"}>
+            {remaining > 0 ? `${remaining.toLocaleString("en-US")} left` : "Sold out"}
+          </span>
         </p>
       </div>
     </Link>
