@@ -34,7 +34,7 @@ needing a crypto wallet.
 
 | Evidence | Location |
 | --- | --- |
-| Commit and pull request links for issuance and transaction logic | `ADD PR LINK` |
+| Commit links for issuance and transaction logic | [Commit 513205f](https://github.com/Dev-Yvonne/BlockPass-Event-and--icketing-system/commit/513205fc582ab2cda5e17a9c93c84a5c68eecc11) on the [Staging branch](https://github.com/Dev-Yvonne/BlockPass-Event-and--icketing-system/tree/Staging) |
 | 5+ StellarExpert transaction links | [testnet-evidence.md](testnet-evidence.md) |
 | Deployed app URL | `ADD DEPLOYED URL` |
 | Screenshots of event selection and checkout | [screenshots](screenshots) |
