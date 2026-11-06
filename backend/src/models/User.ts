@@ -9,6 +9,7 @@ export interface IUser extends Document {
   email: string;
   password: string;
   role: UserRole;
+  suspended: boolean;
   createdAt: Date;
   comparePassword(candidate: string): Promise<boolean>;
 }
@@ -29,6 +30,7 @@ const userSchema = new Schema<IUser>(
       enum: ["attendee", "organizer", "admin"],
       default: "attendee",
     },
+    suspended: { type: Boolean, default: false },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );

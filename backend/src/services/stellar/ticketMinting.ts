@@ -2,6 +2,10 @@ import { getIssuerKeypair, getTicketContractClient } from "./contractClient";
 import { AppError } from "../../utils/AppError";
 import { OnChainTicket } from "./types";
 
+/**
+ * Soroban client for the ticket-nft contract, kept for the gate check-in phase.
+ * Round 1 issuance runs on classic assets; see ticketAssets.ts.
+ */
 export interface MintResult {
   tokenId: string;
   txHash: string;

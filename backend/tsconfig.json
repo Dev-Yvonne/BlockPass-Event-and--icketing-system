@@ -13,6 +13,7 @@
     "moduleResolution": "node",
     "typeRoots": ["./node_modules/@types", "./src/types"]
   },
+  "ts-node": { "files": true },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

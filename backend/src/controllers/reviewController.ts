@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Review from "../models/Review";
+import Booking from "../models/Booking";
 import Event from "../models/Event";
 import { AppError } from "../utils/AppError";
 import { asyncHandler } from "../utils/asyncHandler";
@@ -24,6 +25,14 @@ export const createReview = asyncHandler(async (req: Request, res: Response) => 
 
   const event = await Event.findById(eventId);
   if (!event) throw new AppError("Event not found", 404);
+
+  // Only ticket holders can review, so ratings reflect people who actually bought.
+  const hasTicket = await Booking.exists({
+    event: eventId,
+    user: req.user!._id,
+    status: "confirmed",
+  });
+  if (!hasTicket) throw new AppError("Only ticket holders can review this event", 403);
 
   const existing = await Review.findOne({ event: eventId, user: req.user!._id });
   if (existing) throw new AppError("You have already reviewed this event", 409);

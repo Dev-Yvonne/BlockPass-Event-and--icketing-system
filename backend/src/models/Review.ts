@@ -6,6 +6,8 @@ export interface IReview extends Document {
   event: Types.ObjectId;
   rating: number;
   comment: string;
+  /** Seeded demo content, always shown with a label. */
+  sample: boolean;
   createdAt: Date;
 }
 
@@ -15,6 +17,7 @@ const reviewSchema = new Schema<IReview>(
     event: { type: Schema.Types.ObjectId, ref: "Event", required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: { type: String, required: true, trim: true },
+    sample: { type: Boolean, default: false },
   },
   { timestamps: { createdAt: true, updatedAt: false } }
 );

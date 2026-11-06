@@ -40,12 +40,23 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
   if (!user || !(await user.comparePassword(password))) {
     throw new AppError("Invalid email or password", 401);
   }
+  if (user.suspended) throw new AppError("This account has been suspended", 403);
 
   const token = generateToken(user._id.toString());
   res.json({
     token,
     user: { id: user._id, name: user.name, email: user.email, role: user.role },
   });
+});
+
+/** Lets an attendee start hosting without opening a second account. */
+export const becomeOrganizer = asyncHandler(async (req: Request, res: Response) => {
+  const user = req.user!;
+  if (user.role === "attendee") {
+    user.role = "organizer";
+    await user.save();
+  }
+  res.json({ id: user._id, name: user.name, email: user.email, role: user.role });
 });
 
 export const getMe = asyncHandler(async (req: Request, res: Response) => {

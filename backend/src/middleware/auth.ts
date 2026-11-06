@@ -28,8 +28,27 @@ export const protect = asyncHandler(
 
     const user = await User.findById(payload.id);
     if (!user) throw new AppError("User no longer exists", 401);
+    if (user.suspended) throw new AppError("This account has been suspended", 403);
 
     req.user = user;
+    next();
+  }
+);
+
+/** Attaches the user when a valid token is sent; guests pass straight through. */
+export const optionalAuth = asyncHandler(
+  async (req: Request, _res: Response, next: NextFunction) => {
+    const header = req.headers.authorization;
+    const secret = process.env.JWT_SECRET;
+    if (header?.startsWith("Bearer ") && secret) {
+      try {
+        const payload = jwt.verify(header.split(" ")[1], secret) as TokenPayload;
+        const user = await User.findById(payload.id);
+        if (user && !user.suspended) req.user = user;
+      } catch {
+        // An expired session shouldn't block a guest checkout.
+      }
+    }
     next();
   }
 );
