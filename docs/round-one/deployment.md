@@ -45,6 +45,10 @@ Create a Vercel project with **Root Directory** `frontend`, and set `API_URL` to
 `https://<api-project>.vercel.app/api`. Set it before the first build, because the `/api` proxy is
 fixed at build time.
 
+Each folder has a `.vercelignore` that keeps `.env` files out of command line deployments. To deploy
+from your machine instead of through GitHub, run `vercel deploy --prod` inside `backend/` and
+`frontend/`.
+
 ## 4. Verify
 
 Buy a ticket on the deployed site, and confirm the transaction opens on StellarExpert. Vercel's

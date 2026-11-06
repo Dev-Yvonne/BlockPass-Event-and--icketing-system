@@ -17,6 +17,14 @@ export async function accountExists(publicKey: string): Promise<boolean> {
   }
 }
 
+/** Friendbot can finish after our timeout, so the account beats our fallback to the ledger. */
+export function isAccountAlreadyCreated(err: unknown): boolean {
+  const operations = (
+    err as { response?: { data?: { extras?: { result_codes?: { operations?: string[] } } } } }
+  ).response?.data?.extras?.result_codes?.operations;
+  return operations?.includes("op_already_exists") ?? false;
+}
+
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -40,7 +48,11 @@ async function createFromDistributor(publicKey: string): Promise<void> {
       .setTimeout(120)
       .build();
     tx.sign(distributor);
-    await getHorizon().submitTransaction(tx);
+    try {
+      await getHorizon().submitTransaction(tx);
+    } catch (err) {
+      if (!isAccountAlreadyCreated(err)) throw err;
+    }
   });
 }
 

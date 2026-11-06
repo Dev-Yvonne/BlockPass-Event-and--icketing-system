@@ -18,6 +18,16 @@ provider, which moves no money.
 - Passed: Invalid orders are rejected with 400
 - Passed: Both payment methods were exercised
 
+## Deployed site
+
+These orders were placed through the public site on 6 November 2026, and both were confirmed on
+Horizon.
+
+| Payment | Order | Transaction |
+| --- | --- | --- |
+| BPUSD stablecoin | `E92DC1D73CE24171` | [d1fdbe39...](https://stellar.expert/explorer/testnet/tx/d1fdbe398600eed62107cca17bfe1930b8707c099744090cedc960466cdbdd6a) |
+| Local currency (KES, test mode) | `9FC26532CCC63F8E` | [9c046381...](https://stellar.expert/explorer/testnet/tx/9c046381a1454abd855e9d103654264113b6d949f62ddc707b0128d3c0cd5760) |
+
 ## Transactions
 
 | # | Event | Tier | Tickets | Ledger | Transaction |

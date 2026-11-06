@@ -9,7 +9,7 @@ needing a crypto wallet.
 
 | | |
 | --- | --- |
-| **Live app** | `ADD DEPLOYED URL` |
+| **Live app** | https://blockpass-events.vercel.app |
 | **Demo video** | [BlockPass-Round-1-Demo.mp4](BlockPass-Round-1-Demo.mp4) |
 | **Repository** | https://github.com/Dev-Yvonne/BlockPass-Event-and--icketing-system |
 | **Network** | Stellar testnet. Local payments run in a sandbox. No real money moves. |
@@ -36,7 +36,7 @@ needing a crypto wallet.
 | --- | --- |
 | Commit links for issuance and transaction logic | [Commit 513205f](https://github.com/Dev-Yvonne/BlockPass-Event-and--icketing-system/commit/513205fc582ab2cda5e17a9c93c84a5c68eecc11) on the [Staging branch](https://github.com/Dev-Yvonne/BlockPass-Event-and--icketing-system/tree/Staging) |
 | 5+ StellarExpert transaction links | [testnet-evidence.md](testnet-evidence.md) |
-| Deployed app URL | `ADD DEPLOYED URL` |
+| Deployed app URL | https://blockpass-events.vercel.app |
 | Screenshots of event selection and checkout | [screenshots](screenshots) |
 | 2-minute demo video | [BlockPass-Round-1-Demo.mp4](BlockPass-Round-1-Demo.mp4) ([script](demo-script.md)) |
 | Backend logs showing order receipt and Horizon hash | [backend-log-sample.jsonl](backend-log-sample.jsonl) |
