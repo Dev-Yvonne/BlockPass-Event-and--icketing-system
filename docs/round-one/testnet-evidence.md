@@ -20,13 +20,15 @@ provider, which moves no money.
 
 ## Deployed site
 
-These orders were placed through the public site on 6 November 2026, and both were confirmed on
-Horizon.
+These orders were placed through the public site on 6 November 2026, and all were confirmed on
+Horizon. The last two went through https://www.blockpass.co.ke.
 
 | Payment | Order | Transaction |
 | --- | --- | --- |
 | BPUSD stablecoin | `E92DC1D73CE24171` | [d1fdbe39...](https://stellar.expert/explorer/testnet/tx/d1fdbe398600eed62107cca17bfe1930b8707c099744090cedc960466cdbdd6a) |
 | Local currency (KES, test mode) | `9FC26532CCC63F8E` | [9c046381...](https://stellar.expert/explorer/testnet/tx/9c046381a1454abd855e9d103654264113b6d949f62ddc707b0128d3c0cd5760) |
+| BPUSD stablecoin | `0783782DA718A40B` | [ec74a3e8...](https://stellar.expert/explorer/testnet/tx/ec74a3e85769e14dc504af865fd6ac01118ce9c7f55123c61334e70a8f028144) |
+| Local currency (KES, test mode) | `AD5DD3B43BCB4FF6` | [18baeb5f...](https://stellar.expert/explorer/testnet/tx/18baeb5f712fa1cd7a98a0e5bfc4bb105aac0ef05157dba3402c27cd94ffb596) |
 
 ## Transactions
 

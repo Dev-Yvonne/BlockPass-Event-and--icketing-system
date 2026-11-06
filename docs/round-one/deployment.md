@@ -49,6 +49,9 @@ Each folder has a `.vercelignore` that keeps `.env` files out of command line de
 from your machine instead of through GitHub, run `vercel deploy --prod` inside `backend/` and
 `frontend/`.
 
+The live site runs at https://www.blockpass.co.ke. A push to `main` rebuilds the web project, and
+the API project is deployed separately.
+
 ## 4. Verify
 
 Buy a ticket on the deployed site, and confirm the transaction opens on StellarExpert. Vercel's

@@ -10,7 +10,7 @@ and every ticket is a uniquely serialized asset on the Stellar testnet instead o
 can copy. Payments run in test mode today, and no real money moves.
 Attendees get their tickets without ever touching a crypto wallet directly.
 
-**Live test site:** https://blockpass-events.vercel.app
+**Live test site:** https://www.blockpass.co.ke
 
 Round 1 deliverables and evidence are in [`docs/round-one`](docs/round-one/README.md).
 
