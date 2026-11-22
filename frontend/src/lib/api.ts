@@ -5,12 +5,17 @@ import {
   AdminUser,
   EventItem,
   EventRow,
+  GateEvents,
   Order,
   OrderRow,
   OrganizerEventDetail,
   OrganizerOverview,
+  PassToken,
   PaymentMethod,
+  Redemption,
   Review,
+  ScanLogEntry,
+  ScanResult,
   User,
   UserRole,
 } from "../types";
@@ -104,3 +109,14 @@ export const setEventHidden = (id: string, hidden: boolean) =>
   patch(`/admin/events/${id}`, { hidden });
 export const getAdminOrders = () => request<OrderRow[]>("/admin/orders");
 export const getAdminActivity = () => request<ActivityEntry[]>("/admin/activity");
+
+export const getPass = (reference: string) => request<Order>(`/passes/${encodeURIComponent(reference)}`);
+export const getPassToken = (reference: string, serial: number) =>
+  post<PassToken>(`/passes/${encodeURIComponent(reference)}/tickets/${serial}/token`);
+
+export const getGateEvents = () => request<GateEvents>("/gate/events");
+export const scanPass = (eventId: string, token: string) => post<ScanResult>("/gate/scan", { eventId, token });
+export const confirmRedemption = (bookingId: string, serial: number) =>
+  post<Redemption>(`/gate/tickets/${bookingId}/${serial}/confirm`);
+export const getScanLogs = (eventId: string) =>
+  request<ScanLogEntry[]>(`/gate/logs?eventId=${encodeURIComponent(eventId)}`);

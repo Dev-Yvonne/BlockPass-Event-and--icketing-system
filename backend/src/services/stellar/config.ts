@@ -45,6 +45,33 @@ export function getStablecoinIssuerKeypair(): Keypair {
   return Keypair.fromSecret(secret);
 }
 
+/**
+ * Holds every ticket that has been scanned at a gate. Moving a ticket here,
+ * rather than tracking it only in the database, makes reuse visible on-chain.
+ */
+export function getVaultKeypair(): Keypair {
+  const secret = process.env.STELLAR_VAULT_SECRET;
+  if (!secret) {
+    throw new AppError(
+      "Gate redemption is not configured (missing STELLAR_VAULT_SECRET). Run npm run stellar:setup.",
+      500
+    );
+  }
+  return Keypair.fromSecret(secret);
+}
+
+/** Signs pass QR codes. A separate key, so it can rotate without touching funds. */
+export function getPassSigningKeypair(): Keypair {
+  const secret = process.env.PASS_SIGNING_SECRET;
+  if (!secret) {
+    throw new AppError(
+      "Passes are not configured (missing PASS_SIGNING_SECRET). Run npm run stellar:setup.",
+      500
+    );
+  }
+  return Keypair.fromSecret(secret);
+}
+
 export const explorer = {
   tx: (hash: string) => `${EXPLORER_BASE}/tx/${hash}`,
   account: (publicKey: string) => `${EXPLORER_BASE}/account/${publicKey}`,

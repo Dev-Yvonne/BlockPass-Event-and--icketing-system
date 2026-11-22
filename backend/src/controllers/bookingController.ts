@@ -41,7 +41,7 @@ export const cancelBooking = asyncHandler(async (req: Request, res: Response) =>
   if (booking.status === "cancelled") {
     throw new AppError("Booking is already cancelled", 400);
   }
-  // Revoking a ticket on-chain is part of the gate-scanner work, not Round 1.
+  // Issued tickets live on-chain; refunds and revocation aren't built yet.
   if (booking.status === "confirmed") {
     throw new AppError("Tickets already issued on Stellar can't be cancelled yet", 409);
   }

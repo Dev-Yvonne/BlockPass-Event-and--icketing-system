@@ -15,6 +15,7 @@ import {
   Ticket,
   Users,
   X,
+  ScanLine,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -42,6 +43,7 @@ const HOSTING: NavItem[] = [
   { href: "/organizer/events", label: "Events", icon: CalendarDays },
   { href: "/organizer/orders", label: "Orders", icon: Receipt },
   { href: "/organizer/feedback", label: "Feedback", icon: MessageSquareText },
+  { href: "/organizer/scan", label: "Gate scanner", icon: ScanLine },
 ];
 
 const PLATFORM: NavItem[] = [

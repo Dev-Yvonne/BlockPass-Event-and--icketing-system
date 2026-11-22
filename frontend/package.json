@@ -8,8 +8,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@types/qrcode": "1.5.5",
     "lucide-react": "^0.460.0",
     "next": "15.5.29",
+    "qr-scanner": "1.4.2",
+    "qrcode": "1.5.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

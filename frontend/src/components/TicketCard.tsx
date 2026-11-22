@@ -1,4 +1,4 @@
-import { CalendarDays, ExternalLink, MapPin, ShieldCheck } from "lucide-react";
+import { CalendarDays, CircleCheck, ExternalLink, MapPin, QrCode, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { formatDate, isPast } from "../lib/format";
 import { Order } from "../types";
@@ -54,6 +54,18 @@ export function TicketCard({
             <ShieldCheck size={15} aria-hidden="true" />
             On Stellar testnet
           </span>
+          {!ticket.redemption && !isPast(order.event.date) && (
+            <Link className="ticket-pass-link" href={`/pass/${order.reference}?ticket=${ticket.serial}`}>
+              <QrCode size={14} aria-hidden="true" />
+              Show pass
+            </Link>
+          )}
+          {ticket.redemption && (
+            <span className="ticket-used">
+              <CircleCheck size={14} aria-hidden="true" />
+              Checked in
+            </span>
+          )}
           <a href={ticket.explorerUrl} target="_blank" rel="noreferrer">
             Verify
             <ExternalLink size={13} aria-hidden="true" />

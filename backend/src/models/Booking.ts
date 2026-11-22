@@ -3,9 +3,27 @@ import crypto from "crypto";
 
 export type BookingStatus = "pending" | "confirmed" | "failed" | "cancelled";
 
+export type RedemptionStatus = "redeeming" | "redeemed" | "failed";
+
+/** Gate check-in: admitted once in the database, then moved on-chain to the vault. */
+export interface ITicketRedemption {
+  status: RedemptionStatus;
+  admittedAt: Date;
+  scannedBy?: Types.ObjectId;
+  /** Hash of the transaction last sent, so a retry can check whether it landed. */
+  pendingTxHash?: string;
+  txHash?: string;
+  ledger?: number;
+  confirmedAt?: Date;
+  attempts?: number;
+  lastAttemptAt?: Date;
+  error?: string;
+}
+
 export interface IMintedTicket {
   serial: number;
   assetCode: string;
+  redemption?: ITicketRedemption;
 }
 
 export interface IBookingStellar {
@@ -69,7 +87,25 @@ const bookingSchema = new Schema<IBooking>(
       unique: true,
       default: () => crypto.randomBytes(8).toString("hex").toUpperCase(),
     },
-    tickets: [{ _id: false, serial: Number, assetCode: String }],
+    tickets: [
+      {
+        _id: false,
+        serial: Number,
+        assetCode: String,
+        redemption: {
+          status: { type: String, enum: ["redeeming", "redeemed", "failed"] },
+          admittedAt: Date,
+          scannedBy: { type: Schema.Types.ObjectId, ref: "User" },
+          pendingTxHash: String,
+          txHash: String,
+          ledger: Number,
+          confirmedAt: Date,
+          attempts: Number,
+          lastAttemptAt: Date,
+          error: String,
+        },
+      },
+    ],
     stellar: {
       issuer: String,
       attendeePublicKey: String,

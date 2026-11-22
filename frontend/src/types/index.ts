@@ -59,7 +59,7 @@ export interface Order {
     reference?: string;
     status: "pending" | "paid" | "refunded" | "failed";
   };
-  tickets: { serial: number; assetCode: string; explorerUrl: string }[];
+  tickets: { serial: number; assetCode: string; explorerUrl: string; redemption: Redemption | null }[];
   stellar: {
     txHash: string | null;
     ledger: number | null;
@@ -200,4 +200,69 @@ export interface Review {
 export interface CheckoutOptions {
   stablecoin: string;
   rates: Record<string, number>;
+}
+
+/** A ticket's gate check-in: admitted at once, then moved to the vault on Stellar. */
+export interface Redemption {
+  status: "redeeming" | "redeemed" | "failed";
+  admittedAt: string;
+  txHash: string | null;
+  txUrl: string | null;
+  ledger: number | null;
+  confirmedAt: string | null;
+}
+
+export interface PassToken {
+  token: string;
+  expiresAt: number;
+  serverTime: number;
+}
+
+export interface GateEvent {
+  id: string;
+  title: string;
+  date: string;
+  venue: string;
+  issued: number;
+  checkedIn: number;
+}
+
+export interface GateEvents {
+  vault: { publicKey: string; url: string };
+  events: GateEvent[];
+}
+
+export type ScanVerdict = "valid" | "already_redeemed" | "invalid";
+
+export interface ScanResult {
+  verdict: ScanVerdict;
+  reason?: string;
+  message: string;
+  source?: "database" | "ledger";
+  latencyMs: number;
+  ticket?: {
+    bookingId: string;
+    serial: number;
+    assetCode: string;
+    attendeeName: string;
+    tierName: string;
+    eventTitle: string;
+    mintTxUrl: string | null;
+    assetUrl: string | null;
+  };
+  redemption?: Redemption;
+}
+
+export interface ScanLogEntry {
+  id: string;
+  stage: "scan.verdict" | "redeem.submitted" | "redeem.confirmed" | "redeem.failed";
+  verdict: ScanVerdict | null;
+  reason: string | null;
+  assetCode: string | null;
+  serial: number | null;
+  latencyMs: number | null;
+  txHash: string | null;
+  txUrl: string | null;
+  error: string | null;
+  createdAt: string;
 }

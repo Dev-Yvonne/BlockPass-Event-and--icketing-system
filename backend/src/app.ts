@@ -6,6 +6,8 @@ import bookingRoutes from "./routes/bookingRoutes";
 import checkoutRoutes from "./routes/checkoutRoutes";
 import organizerRoutes from "./routes/organizerRoutes";
 import adminRoutes from "./routes/adminRoutes";
+import gateRoutes from "./routes/gateRoutes";
+import passRoutes from "./routes/passRoutes";
 import { notFound, errorHandler } from "./middleware/errorHandler";
 
 const app = express();
@@ -24,6 +26,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/checkout", checkoutRoutes);
 app.use("/api/organizer", organizerRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/passes", passRoutes);
+app.use("/api/gate", gateRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

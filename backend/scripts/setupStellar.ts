@@ -1,6 +1,7 @@
 /**
  * Creates backend/.env with a funded testnet distributor account and generated
- * secrets, then provisions and funds a sample issuer to prove the pipeline.
+ * secrets, funds the gate vault, then provisions and funds a sample issuer to
+ * prove the pipeline.
  * Safe to re-run: existing values are kept. Secrets are never printed.
  *
  *   npm run stellar:setup
@@ -49,11 +50,20 @@ async function main() {
     ? Keypair.fromSecret(current.STELLAR_STABLECOIN_ISSUER_SECRET)
     : Keypair.random();
   env = setEnvValue(env, "STELLAR_STABLECOIN_ISSUER_SECRET", stablecoin.secret());
+  // Round 2: the gate vault that receives scanned tickets, and the pass QR signing key.
+  const vault = current.STELLAR_VAULT_SECRET
+    ? Keypair.fromSecret(current.STELLAR_VAULT_SECRET)
+    : Keypair.random();
+  env = setEnvValue(env, "STELLAR_VAULT_SECRET", vault.secret());
+  if (!current.PASS_SIGNING_SECRET) {
+    env = setEnvValue(env, "PASS_SIGNING_SECRET", Keypair.random().secret());
+  }
   fs.writeFileSync(ENV_PATH, env, { mode: 0o600 });
   dotenv.config({ path: ENV_PATH, override: true });
 
   await fundAndReport("Distributor", distributor.publicKey());
   await fundAndReport("Test stablecoin issuer", stablecoin.publicKey());
+  await fundAndReport("Gate vault", vault.publicKey());
   await fundAndReport("Sample issuer", Keypair.random().publicKey());
   console.log(`\nSaved configuration to ${ENV_PATH}`);
 }

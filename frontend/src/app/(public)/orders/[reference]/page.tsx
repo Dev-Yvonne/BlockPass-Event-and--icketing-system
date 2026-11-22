@@ -1,4 +1,4 @@
-import { CircleAlert, CircleCheck, ExternalLink } from "lucide-react";
+import { CircleAlert, CircleCheck, ExternalLink, QrCode } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { TicketCard } from "../../../../components/TicketCard";
@@ -34,6 +34,13 @@ export default async function OrderPage({ params }: { params: Promise<{ referenc
           </p>
         </div>
       </div>
+
+      {confirmed && (
+        <Link className="btn large order-pass-cta" href={`/pass/${order.reference}`}>
+          <QrCode size={18} aria-hidden="true" />
+          Open mobile pass
+        </Link>
+      )}
 
       {confirmed && (
         <div className="order-tickets">

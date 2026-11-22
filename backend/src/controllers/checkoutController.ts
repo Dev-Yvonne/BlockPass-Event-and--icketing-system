@@ -7,6 +7,7 @@ import { checkout, MAX_TICKETS_PER_ORDER } from "../services/checkout";
 import { LOCAL_RATES, PaymentMethod } from "../services/payments";
 import { maskEmail } from "../services/mintLogger";
 import { explorer, STABLECOIN_CODE } from "../services/stellar/config";
+import { toRedemptionView } from "../services/gate";
 import { AppError } from "../utils/AppError";
 import { asyncHandler } from "../utils/asyncHandler";
 
@@ -48,10 +49,11 @@ export function toOrderResponse(booking: IBooking, event: IEvent) {
       reference: booking.payment.reference,
       status: booking.payment.status,
     },
-    tickets: booking.tickets.map(({ serial, assetCode }) => ({
-      serial,
-      assetCode,
-      explorerUrl: issuer ? explorer.asset(assetCode, issuer) : null,
+    tickets: booking.tickets.map((ticket) => ({
+      serial: ticket.serial,
+      assetCode: ticket.assetCode,
+      explorerUrl: issuer ? explorer.asset(ticket.assetCode, issuer) : null,
+      redemption: toRedemptionView(ticket),
     })),
     stellar: {
       network: "testnet",

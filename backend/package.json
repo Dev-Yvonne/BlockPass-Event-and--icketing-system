@@ -14,7 +14,8 @@
     "stellar:mint-demo": "ts-node scripts/mintDemo.ts",
     "stellar:e2e": "ts-node scripts/e2eTestnet.ts",
     "stellar:init-contract": "ts-node scripts/initializeContract.ts",
-    "user:create": "ts-node scripts/createUser.ts"
+    "user:create": "ts-node scripts/createUser.ts",
+    "gate:drill": "ts-node scripts/gateDrill.ts"
   },
   "dependencies": {
     "@stellar/stellar-sdk": "^13.3.0",
