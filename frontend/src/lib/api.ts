@@ -33,7 +33,12 @@ async function request<T>(route: string, init: RequestInit = {}): Promise<T> {
     },
   });
   const body = await res.json().catch(() => null);
-  if (!res.ok) throw Object.assign(new Error(body?.message ?? "Something went wrong. Please try again."), { body });
+  if (!res.ok) {
+    throw Object.assign(new Error(body?.message ?? "Something went wrong. Please try again."), {
+      body,
+      status: res.status,
+    });
+  }
   return body;
 }
 

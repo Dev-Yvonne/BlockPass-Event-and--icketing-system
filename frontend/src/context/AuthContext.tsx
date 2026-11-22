@@ -25,11 +25,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setLoading(false);
       return;
     }
-    authApi
-      .getMe()
-      .then(setUser)
-      .catch(() => localStorage.removeItem(authApi.TOKEN_KEY))
-      .finally(() => setLoading(false));
+    // Only a rejected session signs someone out. A slow or dropped request,
+    // say on gate wifi, retries instead of sending an organizer to the login page.
+    let cancelled = false;
+    const check = async (attempt: number): Promise<void> => {
+      try {
+        const me = await authApi.getMe();
+        if (!cancelled) setUser(me);
+      } catch (err) {
+        const status = (err as { status?: number }).status;
+        if (status === 401 || status === 403) localStorage.removeItem(authApi.TOKEN_KEY);
+        else if (attempt < 3 && !cancelled) {
+          await new Promise((resolve) => setTimeout(resolve, 1500 * attempt));
+          return check(attempt + 1);
+        }
+      }
+    };
+    check(1).finally(() => !cancelled && setLoading(false));
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   async function login(email: string, password: string) {

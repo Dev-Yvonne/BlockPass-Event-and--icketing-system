@@ -4,7 +4,7 @@
  * phone does, and scans it the way the gate scanner does:
  *
  *   - 25 valid tickets, each admitted once and moved to the vault on-chain
- *   - 5 duplicate scans of tickets that were already used
+ *   - 5 duplicate scans of used tickets, seconds later, as from a forwarded screenshot
  *   - one ticket scanned twice at the same moment
  *   - invalid codes: forged, edited, expired, wrong event and not a pass
  *
@@ -154,6 +154,7 @@ async function main() {
   console.log("Scanning valid tickets...");
   const validScans: { assetCode: string; verdict: string; serverMs: number; roundTripMs: number }[] = [];
   const firstTokens: string[] = [];
+  const duplicateScans: { assetCode: string; verdict: string; source?: string; serverMs: number; roundTripMs: number }[] = [];
   let race: { verdicts: string[] } | null = null;
   for (const [index, pass] of passes.entries()) {
     const token = await passToken(pass.reference, pass.ticket.serial);
@@ -176,15 +177,19 @@ async function main() {
     if (result.body.verdict === "valid" && result.body.ticket) {
       confirmations.push(confirm(result.body.ticket.bookingId, pass.ticket.serial, pass.ticket.assetCode));
     }
-  }
 
-  // 3. Duplicates: the same codes again, as if forwarded as screenshots.
-  console.log("Scanning duplicates...");
-  const duplicateScans: { assetCode: string; verdict: string; source?: string; serverMs: number }[] = [];
-  for (let i = 0; i < DUPLICATE_COUNT; i++) {
-    const { body } = await scan(firstTokens[i]);
-    duplicateScans.push({ assetCode: passes[i].ticket.assetCode, verdict: body.verdict, source: body.source, serverMs: body.latencyMs });
-    console.log(`  ${passes[i].ticket.assetCode}: ${body.verdict}`);
+    // 3. Duplicates: the same code again seconds later, as a forwarded screenshot would be.
+    if (index < DUPLICATE_COUNT) {
+      const again = await scan(token);
+      duplicateScans.push({
+        assetCode: pass.ticket.assetCode,
+        verdict: again.body.verdict,
+        source: again.body.source,
+        serverMs: again.body.latencyMs,
+        roundTripMs: again.ms,
+      });
+      console.log(`  ${pass.ticket.assetCode} again: ${again.body.verdict} (${again.body.source})`);
+    }
   }
   const usedPassToken = await post(`/passes/${passes[0].reference}/tickets/${passes[0].ticket.serial}/token`, {});
 
@@ -201,6 +206,7 @@ async function main() {
     ["Forged: signed with another key", forged],
     ["Edited: serial changed after signing", `${prefix}.${Buffer.from(JSON.stringify(edited)).toString("base64url")}.${firstTokens[1].split(".")[2]}`],
     ["Expired: 30-second window passed", expiringToken],
+    ["Old screenshot: used ticket's code after 30 seconds", firstTokens[2]],
     ["Wrong event: ticket for another event", await passToken(otherOrder.reference, otherOrder.tickets[0].serial)],
     ["Not a pass: a web address", "https://example.com/ticket/12345"],
     ["Not a pass: random text", crypto.randomBytes(24).toString("hex")],
