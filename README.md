@@ -12,9 +12,8 @@ Attendees get their tickets without ever touching a crypto wallet directly.
 
 **Live test site:** https://www.blockpass.co.ke
 
-Round 1 (ticket minting) is documented in [`docs/round-one`](docs/round-one/README.md) and
-Round 2 (mobile pass, gate scanner and on-chain redemption) in
-[`docs/round-two`](docs/round-two/README.md).
+Round 1 delivered ticket minting on Stellar. Round 2 added the mobile pass, the gate scanner and
+on-chain redemption.
 
 ---
 
@@ -74,12 +73,11 @@ routes tickets, and each attendee has a custodial testnet wallet. A ticket is a 
 with a supply of 1 and a readable code, such as `LAGOSV000014`.
 
 The code is in `backend/src/services/stellar`, and `backend/src/services/checkout.ts` runs an
-order from form submission to confirmed mint. See
-[`docs/round-one`](docs/round-one/README.md) for the full flow.
+order from form submission to confirmed mint.
 
 At the gate, `backend/src/services/gate.ts` verifies a scan and
 `backend/src/services/stellar/redemption.ts` moves the ticket from the attendee's wallet into the
-redeemed vault in one atomic transaction. See [`docs/round-two`](docs/round-two/README.md).
+redeemed vault in one atomic transaction.
 
 `contracts/ticket-nft` and its `ticketMinting.ts` client are a separate Soroban path. The live
 app doesn't use them.
@@ -90,8 +88,8 @@ Each app is a standalone npm project — install and run them independently.
 
 ### Backend API
 
-Needs Node 18+ and a MongoDB database. See [Connecting MongoDB](docs/mongodb-setup.md) for Atlas
-and local setup.
+Needs Node 18+ and a MongoDB database. Set `MONGO_URI` in `backend/.env` to
+an Atlas or local connection string.
 
 ```bash
 cd backend
@@ -108,8 +106,8 @@ Runs on `http://localhost:5000` by default.
 | `npm test` | Unit tests for asset codes, pass tokens and transaction construction |
 | `npm run user:create -- <email> admin "<Name>"` | Creates the first admin, since sign-up can't grant that role |
 | `npm run stellar:mint-demo` | Mints one ticket directly and prints the transaction hash |
-| `npm run stellar:e2e` | Runs 24+ checkouts against a running API, verifies them on Horizon, and writes `docs/round-one/testnet-evidence.md` |
-| `npm run gate:drill` | Runs the Round 2 gate drill against a running API; see [`docs/round-two`](docs/round-two/README.md) |
+| `npm run stellar:e2e` | Runs 24+ checkouts against a running API, verifies them on Horizon |
+| `npm run gate:drill` | Runs the Round 2 gate drill against a running API (`API_URL`, `DRILL_ORGANIZER_EMAIL`, `DRILL_ORGANIZER_PASSWORD`, `DRILL_OUT`) |
 
 ### Frontend (the app)
 
