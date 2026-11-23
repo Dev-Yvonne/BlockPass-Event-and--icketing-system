@@ -12,7 +12,9 @@ Attendees get their tickets without ever touching a crypto wallet directly.
 
 **Live test site:** https://www.blockpass.co.ke
 
-Round 1 deliverables and evidence are in [`docs/round-one`](docs/round-one/README.md).
+Round 1 (ticket minting) is documented in [`docs/round-one`](docs/round-one/README.md) and
+Round 2 (mobile pass, gate scanner and on-chain redemption) in
+[`docs/round-two`](docs/round-two/README.md).
 
 ---
 
@@ -29,7 +31,9 @@ Concerts and community events across Africa frequently run into the same failure
   authentic before you're standing at the door.
 
 BlockPass addresses this with atomic, oversell-safe checkout and automated ticket issuance on
-the Stellar testnet. Gate verification is the next phase.
+the Stellar testnet. At the door, attendees show a signed QR pass that refreshes every few
+seconds, so a screenshot stops working, and organizers scan it in the browser. Each admitted
+ticket is moved on-chain into a redeemed vault so it can't be used twice.
 
 ## What's in this repository
 
@@ -38,14 +42,16 @@ the Stellar testnet. Gate verification is the next phase.
 | [`backend/`](backend) | REST API for accounts, events, checkout, ticket minting, and reviews | Express, TypeScript, MongoDB/Mongoose, JWT, Stellar SDK |
 | [`frontend/`](frontend) | The BlockPass web app (browse events, check out, view on-chain receipts) | Next.js, React, TypeScript |
 | [`marketing/`](marketing) | The public marketing site | React, TypeScript, Vite, React Router |
-| [`contracts/ticket-nft/`](contracts/ticket-nft) | Soroban contract planned for gate check-in, not used by Round 1 | Rust, Soroban SDK |
+| [`contracts/ticket-nft/`](contracts/ticket-nft) | Soroban contract, not used by the live app | Rust, Soroban SDK |
 
 ## Workspaces
 
 | Role | Route | What it covers |
 | --- | --- | --- |
 | Attendee | `/dashboard` | Tickets, upcoming events, and the option to start hosting |
+| Attendee | `/pass/<order reference>` | Mobile pass with a dynamic QR code for each ticket |
 | Organizer | `/organizer` | Events, sales, attendees, CSV export, and attendee feedback |
+| Organizer | `/organizer/scan` | Camera gate scanner with live check-in counts and recent scans |
 | Admin | `/admin` | Platform metrics, minting health, users, event moderation, activity |
 
 Roles are enforced by the API, not only by the interface.
@@ -56,6 +62,8 @@ Roles are enforced by the API, not only by the interface.
 - **Events** — organizers create and manage events; public listing and search for attendees.
 - **Checkout** — guests or logged-in attendees reserve tickets per tier, with atomic
   (`findOneAndUpdate`-based) oversell protection, and tickets mint in the same request.
+- **Passes** — signed, short-lived QR tokens for each ticket, served to the ticket holder.
+- **Gate** — scan verification, duplicate protection, on-chain redemption, and scan logs.
 - **Reviews** — attendees leave a rating and comment per event.
 
 ## Ticketing on Stellar
@@ -69,8 +77,12 @@ The code is in `backend/src/services/stellar`, and `backend/src/services/checkou
 order from form submission to confirmed mint. See
 [`docs/round-one`](docs/round-one/README.md) for the full flow.
 
-`contracts/ticket-nft` and its `ticketMinting.ts` client are a separate Soroban path kept for
-the gate check-in phase. Round 1 doesn't use them.
+At the gate, `backend/src/services/gate.ts` verifies a scan and
+`backend/src/services/stellar/redemption.ts` moves the ticket from the attendee's wallet into the
+redeemed vault in one atomic transaction. See [`docs/round-two`](docs/round-two/README.md).
+
+`contracts/ticket-nft` and its `ticketMinting.ts` client are a separate Soroban path. The live
+app doesn't use them.
 
 ## Getting started
 
@@ -84,7 +96,7 @@ and local setup.
 ```bash
 cd backend
 npm install
-npm run stellar:setup   # creates .env with a funded testnet distributor and secrets
+npm run stellar:setup   # creates .env with a funded distributor, the gate vault and secrets
 npm run seed            # adds demo events and funds their issuers
 npm run dev
 ```
@@ -93,10 +105,11 @@ Runs on `http://localhost:5000` by default.
 
 | Command | What it does |
 | --- | --- |
-| `npm test` | Unit tests for asset codes and transaction construction |
+| `npm test` | Unit tests for asset codes, pass tokens and transaction construction |
 | `npm run user:create -- <email> admin "<Name>"` | Creates the first admin, since sign-up can't grant that role |
 | `npm run stellar:mint-demo` | Mints one ticket directly and prints the transaction hash |
 | `npm run stellar:e2e` | Runs 24+ checkouts against a running API, verifies them on Horizon, and writes `docs/round-one/testnet-evidence.md` |
+| `npm run gate:drill` | Runs the Round 2 gate drill against a running API; see [`docs/round-two`](docs/round-two/README.md) |
 
 ### Frontend (the app)
 
