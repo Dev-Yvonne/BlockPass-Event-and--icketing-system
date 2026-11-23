@@ -2982,8 +2982,70 @@ button:disabled {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .hero-actions {
+    gap: 10px;
+    margin-top: 22px;
+  }
+
   .hero-actions .btn {
-    flex: 1 1 100%;
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 15px;
+  }
+
+  /* Event cards sit two per row on phones. */
+  .event-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .event-card-image {
+    aspect-ratio: 4 / 3;
+  }
+
+  .event-card .date-chip {
+    top: 8px;
+    left: 8px;
+    min-width: 38px;
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+
+  .event-card .date-chip strong {
+    font-size: 15px;
+  }
+
+  .event-card-body {
+    gap: 3px;
+    padding: 10px 11px 12px;
+  }
+
+  .event-card-category {
+    font-size: 10px;
+  }
+
+  .event-card-body h3 {
+    font-size: 14.5px;
+    line-height: 1.25;
+  }
+
+  .event-card-venue {
+    align-items: flex-start;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .event-card-venue svg {
+    width: 12px;
+    height: 12px;
+    margin-top: 1px;
+  }
+
+  .event-card-footer {
+    flex-direction: column;
+    gap: 1px;
+    padding-top: 8px;
+    font-size: 12.5px;
   }
 
   .event-search,

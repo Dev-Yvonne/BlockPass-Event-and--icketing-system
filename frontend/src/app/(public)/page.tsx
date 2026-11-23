@@ -24,11 +24,11 @@ export default async function Home({
             copied or shared as screenshots.
           </p>
           <div className="hero-actions">
-            <Link className="btn large" href="#events">
+            <Link className="btn" href="#events">
               <Compass size={18} aria-hidden="true" />
               Find events
             </Link>
-            <Link className="btn large light" href="/register?role=organizer">
+            <Link className="btn light" href="/register?role=organizer">
               <CalendarPlus size={18} aria-hidden="true" />
               Host an event
             </Link>
